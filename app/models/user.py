@@ -16,3 +16,7 @@ class User(Base):
     password_hash: Mapped[str] = mapped_column(
         String(), nullable=False
     )
+
+    def __init__(self, email: str, password: str):
+        self.email = email
+        self.password_hash = password
