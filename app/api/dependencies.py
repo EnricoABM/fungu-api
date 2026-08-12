@@ -2,14 +2,13 @@ from fastapi import Depends, HTTPException
 from sqlalchemy.orm import sessionmaker, Session
 
 from app.infra.security import oauth2_schema
-from app.infra.database import engine
+from app.infra.database import LocalSession
 from app.services.auth_service import AuthService
 
 def get_session():
     """Cria a sessão de banco de dados para serem usadas como dependencias"""
     try: 
-        _Session = sessionmaker(bind=engine)
-        session = _Session()
+        session = LocalSession()
         yield session
     finally:
         session.close() 
