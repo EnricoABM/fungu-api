@@ -226,3 +226,4 @@ while True:
         ultimo_display = agora
 
     time.sleep(0.05)
+
