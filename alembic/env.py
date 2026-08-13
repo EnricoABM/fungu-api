@@ -8,6 +8,7 @@ from alembic import context
 from app.infra.database import Base
 from app.models.user import User
 from app.models.measurement import Measurement
+from app.models.device import Master, Slave
 from app.infra.config import Settings
 
 # this is the Alembic Config object, which provides

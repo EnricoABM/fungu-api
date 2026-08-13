@@ -4,6 +4,7 @@ from sqlalchemy.orm import sessionmaker, Session
 from app.infra.security import oauth2_schema
 from app.infra.database import LocalSession
 from app.services.auth_service import AuthService
+from app.services.device_service import DeviceService
 
 def get_session():
     """Cria a sessão de banco de dados para serem usadas como dependencias"""
@@ -16,6 +17,10 @@ def get_session():
 def auth_service(session: Session = Depends(get_session)):
     """Cria um objeto da classe AuthService"""
     return AuthService(session) 
+
+def device_service(session: Session = Depends(get_session)):
+    """Cria um objeto da classe DeviceService"""
+    return DeviceService(session)
 
 def verify_access_token(token: str = Depends(oauth2_schema), service: AuthService = Depends(auth_service)):
     """Verifica o acess token enviado em rotas protegidas"""
