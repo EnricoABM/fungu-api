@@ -38,4 +38,13 @@ class DeviceService:
 
     def find_slaves_by_mac_master(self, mac: str):
         return self.repository.find_slaves_by_master_mac(mac)
+
+    def list_masters(self):
+        return self.repository.find_all_masters()
+
+    def list_slaves(self):
+        return self.repository.find_all_slaves()
+
+    def list_slaves_by_master(self, mac: str):
+        return self.repository.find_slaves_by_master_mac(mac)
         

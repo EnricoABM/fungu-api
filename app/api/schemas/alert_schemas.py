@@ -9,3 +9,15 @@ class AlertCreateSchema(BaseModel):
 class ContactUpdateSchema(BaseModel):
     telegram_chat_id: Optional[str] = None
     alert_email: Optional[str] = None
+
+class AlertResponse(BaseModel):
+    id: int
+    variable: str
+    condition: str
+    threshold: float
+
+    class Config:
+        from_attributes = True
+
+class AlertListResponse(BaseModel):
+    alerts: list[AlertResponse]

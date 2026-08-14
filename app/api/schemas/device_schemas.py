@@ -16,3 +16,14 @@ class MeasurementRegister(BaseModel):
     tvoc: str 
     aqi: str 
     lux: str
+
+class MasterResponse(BaseModel):
+    mac: str
+
+class SlaveResponse(BaseModel):
+    mac: str
+    master: str
+
+class MasterWithSlavesResponse(BaseModel):
+    mac: str
+    slaves: list[SlaveResponse]

@@ -32,3 +32,7 @@ class UserService:
             user.alert_email = alert_email
             
         self._session.commit()
+
+    def get_user_by_id(self, user_id: int):
+        user = self._session.query(User).filter(User.id == user_id).first()
+        return user

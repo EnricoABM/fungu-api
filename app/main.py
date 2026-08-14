@@ -2,6 +2,7 @@
 # uvicorn main:app --reload
 
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 
 from contextlib import asynccontextmanager
 
@@ -30,3 +31,4 @@ app = FastAPI(
 ) 
 
 app.include_router(api.api_router)
+app.mount("/", StaticFiles(directory="frontend", html=True), name="frontend")

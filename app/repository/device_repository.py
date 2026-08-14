@@ -23,4 +23,10 @@ class DeviceRepository:
         return self.session.query(Slave).filter(Slave.mac == mac).first()
 
     def find_slaves_by_master_mac(self, mac: str):
-        return self.session.query(Slave).filter(Slave.mac == mac).all()
+        return self.session.query(Slave).filter(Slave.master == mac).all()
+
+    def find_all_masters(self):
+        return self.session.query(Master).all()
+
+    def find_all_slaves(self):
+        return self.session.query(Slave).all()
