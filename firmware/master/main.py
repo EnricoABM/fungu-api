@@ -63,6 +63,7 @@ def modo_portal():
     s.listen(5)
     
     while True:
+        conn = None
         try:
             conn, addr = s.accept()
             request = conn.recv(1024).decode('utf-8')
@@ -192,22 +193,41 @@ def modo_portal():
 </body>
 </html>"""
                 conn.send('HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=utf-8\r\n\r\n' + html)
-            conn.close()
         except Exception as ex:
             print("Erro no socket AP:", ex)
+        finally:
+            if conn:
+                try:
+                    conn.close()
+                except:
+                    pass
+
+# Garante que ambas as interfaces estejam limpas antes de iniciar
+ap.active(False)
+sta.active(False)
+time.sleep(0.5)
 
 if not ssid or not password:
     modo_portal()
 else:
-    sta.active(True)
-    sta.connect(ssid, password)
-    t = 0
-    # Aumentado para 40 tentativas (aprox. 20 segundos) para maior resiliência na conexão
-    while not sta.isconnected() and t < 40:
+    try:
+        sta.active(True)
         time.sleep(0.5)
-        t += 1
-    if not sta.isconnected():
-        print("Falha ao conectar. Abrindo modo AP...")
+        sta.connect(ssid, password)
+        t = 0
+        while not sta.isconnected() and t < 40:
+            time.sleep(0.5)
+            t += 1
+            
+        if not sta.isconnected():
+            print("Falha ao conectar. Abrindo modo AP...")
+            modo_portal()
+        else:
+            print(f"Conectado com sucesso! IP: {sta.ifconfig()[0]}")
+    except Exception as e:
+        print("Erro interno no Wi-Fi, reiniciando pilha:", e)
+        sta.active(False)
+        time.sleep(1)
         modo_portal()
 
 # ==========================================
