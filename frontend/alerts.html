@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alertas - Fungu</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div id="nav-container"></div>
+
+    <div class="max-w-6xl mx-auto px-4 py-8">
+        <div class="flex items-center justify-between mb-6">
+            <h1 class="text-2xl font-bold text-gray-800">Alertas - Configuração</h1>
+        </div>
+
+        <!-- Formulário de criação de alerta -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-lg font-semibold text-gray-800 mb-4">Criar novo alerta</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
+                <div>
+                    <label for="alert-variable" class="block text-sm text-gray-500 mb-1">Variável</label>
+                    <select id="alert-variable" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-700">
+                        <option value="temperatura">Temperatura</option>
+                        <option value="umidade">Umidade</option>
+                        <option value="co2">CO2</option>
+                        <option value="tvoc">TVOC</option>
+                        <option value="aqi">AQI</option>
+                        <option value="lux">Luminosidade</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="alert-condition" class="block text-sm text-gray-500 mb-1">Condição</label>
+                    <select id="alert-condition" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-700">
+                        <option value=">">Maior que (&gt;)</option>
+                        <option value="<">Menor que (&lt;)</option>
+                        <option value="==">Igual a (==)</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="alert-threshold" class="block text-sm text-gray-500 mb-1">Limite</label>
+                    <input type="number" id="alert-threshold" placeholder="Valor limite" step="0.1" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <button id="create-alert-btn" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Criar Alerta</button>
+                </div>
+            </div>
+            <div id="alert-msg" class="hidden text-sm mt-4"></div>
+        </div>
+
+        <!-- Lista de alertas existentes -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-lg font-semibold text-gray-800 mb-4">Alertas configurados</h2>
+            <div id="alerts-list"></div>
+            <div id="empty-state" class="hidden text-center text-gray-500 py-8">Nenhum alerta configurado</div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/alerts.js"></script>
+</body>
+</html>

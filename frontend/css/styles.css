@@ -1,0 +1,22 @@
+/* styles.css - Estilos customizados (Tailwind CDN cuida da maior parte) */
+
+/* Cartão de conteúdo (gráficos, tabelas, informações) */
+.card {
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Container de gráficos Chart.js: altura fixa, largura responsiva */
+.chart-container {
+    height: 400px;
+    width: 100%;
+    position: relative;
+}
+
+/* Grade de cartões do dashboard: auto-preenchimento responsivo */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+}

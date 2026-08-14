@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Fungu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="bg-white rounded-lg shadow-md p-8 max-w-md w-full">
+        <h1 class="text-2xl font-bold text-center mb-6">Fungu - Monitoramento</h1>
+        <form id="login-form" class="mt-4 space-y-4">
+            <input type="email" id="email" placeholder="E-mail" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            <input type="password" id="password" placeholder="Senha" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            <button type="submit" id="login-btn" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Entrar</button>
+            <div id="error-msg" class="hidden text-red-500 text-sm mt-2 text-center"></div>
+            <a href="register.html" class="block text-center mt-4 text-blue-600 hover:underline">Não tem conta? Cadastre-se</a>
+        </form>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        redirectIfLoggedIn();
+        document.getElementById('login-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorMsg = document.getElementById('error-msg');
+            errorMsg.classList.add('hidden');
+            const success = await login(email, password);
+            if (success) {
+                window.location.href = 'dashboard.html';
+            } else {
+                errorMsg.textContent = 'Credenciais Inválidas';
+                errorMsg.classList.remove('hidden');
+            }
+        });
+        // Clear error on typing
+        document.getElementById('email').addEventListener('input', function() {
+            document.getElementById('error-msg').classList.add('hidden');
+        });
+    </script>
+</body>
+</html>

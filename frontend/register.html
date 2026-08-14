@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - Fungu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="bg-white rounded-lg shadow-md p-8 max-w-md w-full">
+        <h1 class="text-2xl font-bold text-center mb-6">Fungu - Cadastro</h1>
+        <form id="register-form" class="mt-4 space-y-4">
+            <input type="email" id="email" placeholder="E-mail" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            <input type="password" id="password" placeholder="Senha" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            <input type="password" id="confirm-password" placeholder="Confirme a senha" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            <button type="submit" id="register-btn" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Cadastrar</button>
+            <div id="error-msg" class="hidden text-red-500 text-sm mt-2 text-center"></div>
+            <div id="success-msg" class="hidden text-green-500 text-sm mt-2 text-center"></div>
+        </form>
+        <a href="login.html" class="block text-center mt-4 text-blue-600 hover:underline">Já tem conta? Entrar</a>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        redirectIfLoggedIn();
+        document.getElementById('register-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            const errorMsg = document.getElementById('error-msg');
+            const successMsg = document.getElementById('success-msg');
+            errorMsg.classList.add('hidden');
+            successMsg.classList.add('hidden');
+            if (password !== confirmPassword) {
+                errorMsg.textContent = 'As senhas não coincidem';
+                errorMsg.classList.remove('hidden');
+                return;
+            }
+            const success = await register(email, password);
+            if (success) {
+                successMsg.textContent = 'Cadastrado com sucesso! Redirecionando...';
+                successMsg.classList.remove('hidden');
+                setTimeout(function() { window.location.href = 'login.html'; }, 2000);
+            } else {
+                errorMsg.textContent = 'E-mail já cadastrado';
+                errorMsg.classList.remove('hidden');
+            }
+        });
+        // Clear messages on typing
+        document.getElementById('email').addEventListener('input', function() {
+            document.getElementById('error-msg').classList.add('hidden');
+            document.getElementById('success-msg').classList.add('hidden');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Fungu</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div id="nav-container"></div>
+
+    <div class="max-w-6xl mx-auto px-4 py-8">
+        <div class="flex items-center justify-between mb-6">
+            <h1 class="text-2xl font-bold text-gray-800">Dashboard - Monitoramento</h1>
+            <div class="text-sm text-gray-500">
+                Última atualização: <span id="last-updated">Nunca atualizado</span>
+            </div>
+        </div>
+
+        <!-- Cards de medições mais recentes -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+            <div id="card-temperatura" class="bg-white rounded-lg shadow-md p-4">
+                <div class="text-sm text-gray-500">Temperatura</div>
+                <div class="text-2xl font-bold" id="value-temperatura">--</div>
+            </div>
+            <div id="card-umidade" class="bg-white rounded-lg shadow-md p-4">
+                <div class="text-sm text-gray-500">Umidade</div>
+                <div class="text-2xl font-bold" id="value-umidade">--</div>
+            </div>
+            <div id="card-co2" class="bg-white rounded-lg shadow-md p-4">
+                <div class="text-sm text-gray-500">CO2</div>
+                <div class="text-2xl font-bold" id="value-co2">--</div>
+            </div>
+            <div id="card-tvoc" class="bg-white rounded-lg shadow-md p-4">
+                <div class="text-sm text-gray-500">TVOC</div>
+                <div class="text-2xl font-bold" id="value-tvoc">--</div>
+            </div>
+            <div id="card-aqi" class="bg-white rounded-lg shadow-md p-4">
+                <div class="text-sm text-gray-500">AQI</div>
+                <div class="text-2xl font-bold" id="value-aqi">--</div>
+            </div>
+            <div id="card-lux" class="bg-white rounded-lg shadow-md p-4">
+                <div class="text-sm text-gray-500">Luminosidade</div>
+                <div class="text-2xl font-bold" id="value-lux">--</div>
+            </div>
+        </div>
+
+        <!-- Gráfico de histórico -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-lg font-semibold text-gray-800">Histórico de medições</h2>
+                <select id="variable-select" class="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-700">
+                    <option value="temperatura">Temperatura</option>
+                    <option value="umidade">Umidade</option>
+                    <option value="co2">CO2</option>
+                    <option value="tvoc">TVOC</option>
+                    <option value="aqi">AQI</option>
+                    <option value="lux">Luminosidade</option>
+                </select>
+            </div>
+            <div class="relative h-96">
+                <canvas id="measurement-chart"></canvas>
+                <div id="empty-state" class="hidden text-center text-gray-500 py-8">Nenhuma medição encontrada</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
