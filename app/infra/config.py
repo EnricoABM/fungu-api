@@ -24,3 +24,12 @@ class Settings:
 
     # TIMEZONE
     TIMEZONE = os.getenv("TIMEZONE", "")
+
+    # ALERTAS SMTP
+    SMTP_SERVER = os.getenv("SMTP_SERVER", "smtp.gmail.com")
+    SMTP_PORT = int(os.getenv("SMTP_PORT", 587))
+    SMTP_USER = os.getenv("SMTP_USER", "")
+    SMTP_PASSWORD = os.getenv("SMTP_PASSWORD", "")
+
+    # ALERTAS TELEGRAM
+    TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
